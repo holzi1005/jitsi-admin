@@ -7,7 +7,6 @@ on: push
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v3
 
@@ -64,4 +63,17 @@ jobs:
         with:
           name: JA_websocket_GITHUB_CI_${{github.run_number}}
           path: nodejs/
-    # ... then your own project steps ...
+  release_project:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download a Build Artifact
+        uses: actions/download-artifact@v2.1.1
+        with:
+          name: JA_websocket_GITHUB_CI_${{github.run_number}}
+      - name: Zip Release
+        uses: TheDoctor0/zip-release@0.7.1
+        with:
+          # Filename for archive
+          filename: jitsi-admin.zip
+        
+        
